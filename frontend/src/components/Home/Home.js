@@ -19,6 +19,7 @@ import {
   SiHtml5,
   SiThreedotjs,
 } from "react-icons/si";
+import Project from "../Projects/Project";
 
 const Home = () => {
   // useEffect(() => {
@@ -103,6 +104,7 @@ const Home = () => {
   // }, []);
 
   return (
+    <>
     <div className="home">
       <canvas className="homeCanvas" ></canvas>
 
@@ -147,9 +149,14 @@ const Home = () => {
           <SiNodedotjs />
           <SiThreedotjs />
         </div>
+
+
+       
       </div>
      
     </div>
+     <Project/>
+     </>
   );
 };
 
