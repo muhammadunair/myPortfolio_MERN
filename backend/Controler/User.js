@@ -56,7 +56,10 @@ export const logout = async (req, res) => {
   export const getUser = async (req,res)=>{
       try {
           const user = await User.findOne().select("-password -email")
-          
+          res.status(300).json({
+            success:true,
+            user,
+          });
       } catch (error) {
         return res.status(400).json({
             success: false,
