@@ -3,8 +3,9 @@ import jwt from "jsonwebtoken";
 import { sendMail } from "../middleware/SendMail.js";
 import cloudinary from "cloudinary";
 
-export const login = async (req, res) => {
+export const login = async (req,res) => {
   try {
+ 
     const { email, password } = req.body;
     const user = await User.findOne({ email, password });
     if (!user) {
@@ -13,7 +14,7 @@ export const login = async (req, res) => {
         message: "Invalid email or password",
       });
     }
-    const token = jwt.sign({ _id: user_id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
     res
       .status(200)
       .cookie("token", token, {
@@ -198,13 +199,110 @@ export const updateUser = async (req, res) => {
       }
     }
 
-
     await user.save();
-
 
     res.status(300).json({
       success: true,
-      message:"User updated successfully",
+      message: "User updated successfully",
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const addTimeLine = async (req, res) => {
+  try {
+    const { title, description, date } = req.body;
+
+    const user = await User.findById(req.user._id);
+    user.timeline.unshift({
+      title,
+      description,
+      date,
+    });
+    await user.save();
+    res.status(200).json({
+      success: true,
+      message: "Added to timeline",
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const addProject = async (req, res) => {
+  try {
+    const { url, title, image, description, techstack } = req.body;
+
+    const user = await User.findById(req.user._id);
+
+    const myCloud = await cloudinary.v2.uploader.upload(image, {
+      folder: "portfolio",
+    });
+    user.project.unshift({
+      url,
+      title,
+      description,
+      techstack,
+      image: {
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
+      },
+    });
+    await user.save();
+    res.status(200).json({
+      success: true,
+      message: "Added to Projects",
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export const deleteTimeline = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(req.user._id);
+    user.timeline = user.timeline.filter((item)=>item._id !== id )
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Deleted from timeline",
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
+
+export const deleteProject = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(req.user._id);
+    const project = user.project.filter((item)=>item._id === id )
+    await cloudinary.v2.uploader.destroy(project.image.public_id)
+    user.project = user.project.filter((item)=>item._id !== id )
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Deleted from Projects",
     });
   } catch (error) {
     return res.status(400).json({
