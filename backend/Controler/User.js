@@ -182,11 +182,22 @@ export const updateUser = async (req, res) => {
     }
 
     if (about) {
-      user.about.name = about.name;
-      user.about.title = about.title;
-      user.about.subtitle = about.subtitle;
-      user.about.description = about.description;
-      user.about.quote = about.quote;
+      if (about.name) {
+        user.about.name = about.name;
+      }
+      if (about.title) {
+        user.about.title = about.title;
+      }
+      if (about.subtitle) {
+        user.about.subtitle = about.subtitle;
+      }
+
+      if (about.description) {
+        user.about.description = about.description;
+      }
+      if (about.quote) {
+        user.about.quote = about.quote;
+      }
       if (about.avatar) {
         await cloudinary.v2.uploader.destroy(user.about.avatar.public_id);
         const myCloud = await cloudinary.v2.uploader.upload(about.avatar, {
