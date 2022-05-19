@@ -104,6 +104,7 @@ export const updateUser = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
     const { name, email, password, skills, about } = req.body;
+
     if (name) {
       user.name = name;
     }
@@ -180,6 +181,7 @@ export const updateUser = async (req, res) => {
         };
       }
     }
+    
 
     if (about) {
       if (about.name) {
