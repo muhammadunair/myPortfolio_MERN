@@ -56,14 +56,15 @@ export const logout = async (req, res) => {
 export const getUser = async (req, res) => {
   try {
     const user = await User.findOne().select("-password -email");
-    res.status(300).json({
+    res.send({
       success: true,
       user,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.send({
       success: false,
-      message: error.message,
+      message: "Internal Server Error",
+      error: error,
     });
   }
 };
