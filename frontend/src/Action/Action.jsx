@@ -5,8 +5,8 @@ export const getUser = () => async (dispatch) => {
     dispatch({
       type: "GET_USER_REQUEST",
     });
-    const { data } = await axios.get("/api/v1/user");
-    console.log(data);
+    let  {data}  = await axios.get(`http://localhost:3001/api/v1/user`);
+     
 
     dispatch({
         type:"GET_USER_SUCCESS",
