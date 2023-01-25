@@ -10,7 +10,7 @@ import Contact from "./components/Contact/Contact";
 import Login from "./components/Login/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, loadUser } from "./Action/Action";
- 
+import AdminPanel from "./components/Admin-panel/AdminPanel";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -25,15 +25,24 @@ const App = () => {
 
   return (
     <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/projects" element={<Project />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/account" element={<Login />} />
-      </Routes>
-      <Footer />
+      {loading ? (
+        <div>Loading</div>
+      ) : (
+        <>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/projects" element={<Project />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route
+              path="/account"
+              element={isAuthenticated ? <AdminPanel /> : <Login />}
+            />
+          </Routes>
+          <Footer />
+        </>
+      )}
     </Router>
   );
 };

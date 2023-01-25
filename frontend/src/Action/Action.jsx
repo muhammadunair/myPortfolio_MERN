@@ -91,92 +91,92 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-// export const updateUser =
-//   (name, email, password, skills, about) => async (dispatch) => {
-//     try {
-//       dispatch({
-//         type: "UPDATE_USER_REQUEST",
-//       });
+export const updateUser =
+  (name, email, password, skills, about) => async (dispatch) => {
+    try {
+      dispatch({
+        type: "UPDATE_USER_REQUEST",
+      });
 
-//       const { data } = await axios.put(
-//         "/api/v1/admin/update",
-//         {
-//           name,
-//           email,
-//           password,
-//           skills,
-//           about,
-//         },
-//         {
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//         }
-//       );
+      const { data } = await axios.put(
+        "/api/v1/admin/update",
+        {
+          name,
+          email,
+          password,
+          skills,
+          about,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-//       dispatch({
-//         type: "UPDATE_USER_SUCCESS",
-//         payload: data.message,
-//       });
-//     } catch (error) {
-//       dispatch({
-//         type: "UPDATE_USER_FAILURE",
-//         payload: error.response.data.message,
-//       });
-//     }
-//   };
+      dispatch({
+        type: "UPDATE_USER_SUCCESS",
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: "UPDATE_USER_FAILURE",
+        payload: error.response.data.message,
+      });
+    }
+  };
 
-// export const addTimeline = (title, description, date) => async (dispatch) => {
-//   try {
-//     dispatch({
-//       type: "ADD_TIMELINE_REQUEST",
-//     });
+export const addTimeline = (title, description, date) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "ADD_TIMELINE_REQUEST",
+    });
 
-//     const { data } = await axios.post(
-//       "/api/v1/admin/timeline/add",
-//       {
-//         title,
-//         description,
-//         date,
-//       },
-//       {
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     );
+    const { data } = await axios.post(
+      "/api/v1/admin/timeline/add",
+      {
+        title,
+        description,
+        date,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-//     dispatch({
-//       type: "ADD_TIMELINE_SUCCESS",
-//       payload: data.message,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: "ADD_TIMELINE_FAILURE",
-//       payload: error.response.data.message,
-//     });
-//   }
-// };
+    dispatch({
+      type: "ADD_TIMELINE_SUCCESS",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "ADD_TIMELINE_FAILURE",
+      payload: error.response.data.message,
+    });
+  }
+};
 
-// export const deleteTimeline = (id) => async (dispatch) => {
-//   try {
-//     dispatch({
-//       type: "DELETE_TIMELINE_REQUEST",
-//     });
+export const deleteTimeline = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "DELETE_TIMELINE_REQUEST",
+    });
 
-//     const { data } = await axios.delete(`/api/v1/admin/timeline/${id}`);
+    const { data } = await axios.delete(`/api/v1/admin/timeline/${id}`);
 
-//     dispatch({
-//       type: "DELETE_TIMELINE_SUCCESS",
-//       payload: data.message,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: "DELETE_TIMELINE_FAILURE",
-//       payload: error.response.data.message,
-//     });
-//   }
-// };
+    dispatch({
+      type: "DELETE_TIMELINE_SUCCESS",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "DELETE_TIMELINE_FAILURE",
+      payload: error.response.data.message,
+    });
+  }
+};
 
 // export const addYoutube = (title, url, image) => async (dispatch) => {
 //   try {
