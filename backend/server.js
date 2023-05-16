@@ -1,16 +1,17 @@
 import { app } from "./app.js";
 import dotenv from "dotenv";
 import {connectDatabase} from "../backend/config/database.js";
-import cloudinary from "cloudinary"
+import { v2 as cloudinary } from 'cloudinary'
 
 dotenv.config({ path: "./backend/config/config.env" });
 
 connectDatabase();
 
-cloudinary.v2.config({
+cloudinary.config({
   cloud_name:process.env.CLOUD_NAME,
-  api_key:process.env.API_KEY,
-  api_secret:process.env.API_SECRET
+  api_key:process.env.CLOUDINARY_API_KEY,
+  api_secret:process.env.CLOUDINARY_API_SECRET,
+  secure: true
 })
 
 app.listen(process.env.PORT , () => {

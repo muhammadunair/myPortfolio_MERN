@@ -25,7 +25,8 @@ const userSchema = new mongoose.Schema({
       public_id: String,
       url: String,
     },
-    image1: {
+
+    image2: {
       public_id: String,
       url: String,
     },
