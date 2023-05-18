@@ -11,6 +11,7 @@ import Login from "./components/Login/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, loadUser } from "./Action/Action";
 import AdminPanel from "./components/Admin-panel/AdminPanel";
+import Timeline from "./components/Admin-panel/Timeline";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,10 @@ const App = () => {
             <Route
               path="/account"
               element={isAuthenticated ? <AdminPanel /> : <Login />}
+            />
+            <Route
+              path="/admin/timeline"
+              element={isAuthenticated ? <Timeline /> : <Login />}
             />
           </Routes>
           <Footer />
