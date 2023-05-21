@@ -26,8 +26,10 @@ const Timeline = () => {
     dispatch(getUser());
   };
 
-  const deleteHandler = (id) => {
-    dispatch(deleteTimeline(id));
+  const deleteHandler = async (id) => {
+    await dispatch(deleteTimeline(id));
+    dispatch(getUser());
+
   };
   useEffect(() => {
     if (error) {
