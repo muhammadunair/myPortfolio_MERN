@@ -270,7 +270,7 @@ export const addTimeLine = async (req, res) => {
 
 export const addProject = async (req, res) => {
   try {
-    const { url, title, image, description, techstack } = req.body;
+    const { url, title, image, description, techStack } = req.body;
 
     const user = await User.findById(req.user._id);
 
@@ -281,7 +281,7 @@ export const addProject = async (req, res) => {
       url,
       title,
       description,
-      techstack,
+      techStack,
       image: {
         public_id: myCloud.public_id,
         url: myCloud.secure_url,

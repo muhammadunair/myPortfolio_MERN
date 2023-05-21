@@ -5,7 +5,7 @@ import { AiOutlineProject } from "react-icons/ai";
 import { MdTimeline } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout, updateUser } from "../../Action/Action.jsx";
+import { getUser, logout, updateUser } from "../../Action/Action.jsx";
 import { useAlert } from "react-alert";
 
 const AdminPanel = () => {
@@ -21,11 +21,10 @@ const AdminPanel = () => {
   const [skills, setSkills] = useState({});
   const [about, setAbout] = useState({});
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    dispatch(updateUser(name, email, password, skills, about));
-
-    console.log(name, email, password, skills, about);
+    await dispatch(updateUser(name, email, password, skills, about));
+    dispatch(getUser());
   };
 
   const logoutHandler = () => {

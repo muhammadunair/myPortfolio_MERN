@@ -4,7 +4,8 @@ import { AiOutlineProject } from "react-icons/ai";
 import { Delete } from "@mui/icons-material";
 import { FaRegSmileWink } from "react-icons/fa";
 import { Button, Typography } from "@mui/material";
-import image from "../../images/venus.jpg"
+import { useDispatch } from 'react-redux';
+import { deleteProject, getUser } from '../../Action/Action';
 
 
 
@@ -21,6 +22,12 @@ export const ProjectCard = ({
     id,
   }) => {
    
+    const dispatch = useDispatch();
+
+    const deleteHandler = async (id) => {
+      await dispatch(deleteProject(id));
+      dispatch(getUser());
+    };
   
     return (
       <>
@@ -36,19 +43,19 @@ export const ProjectCard = ({
           </div>
         </a>
   
-        {isAdmin && (
-          <Button
-            style={{ color: "rgba(40,40,40,0.7)" }}
-          >
-            <Delete />
-          </Button>
-        )}
+         {isAdmin && (
+        <Button
+          style={{ color: "rgba(40,40,40,0.7)" }}
+          onClick={() => deleteHandler(id)}
+        >
+          <Delete />
+        </Button>
+      )}
       </>
     );
   };
 
-const Project = () => {
-    const project = [1,2,3];
+const Projects = ({ project }) => {
   return (
     <>
      <div className="projects">
@@ -57,13 +64,15 @@ const Project = () => {
       </Typography>
 
       <div className="projectsWrapper">
-        {project.map((project, index) => (
+        {project && project.map((item) => (
           <ProjectCard 
-          url ="https:/google.com"
-          projectImage ={image}
-          projectTitle =" sample project"
-          description ="this is a simple project"
-          technologies ="mangoDB react nodejs express"
+          id={item._id}
+          key={item._id}
+          url ={item.url}
+          projectImage ={item.image.url}
+          projectTitle ={item.title }
+          description ={item.description}
+          technologies ={item.techStack}
           />
         ))}
       </div>
@@ -77,4 +86,4 @@ const Project = () => {
   )
 }
 
-export default Project
+export default Projects

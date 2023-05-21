@@ -19,9 +19,9 @@ import {
   SiHtml5,
   SiThreedotjs,
 } from "react-icons/si";
-import Project from "../Projects/Project";
+import Projects from "../Projects/Projects";
 
-const Home = () => {
+const Home = ({timelines,skills,project}) => {
   // useEffect(() => {
   //   const textureloader = new THREE.TextureLoader();
 
@@ -110,31 +110,31 @@ const Home = () => {
 
       <div className="homeContainer">
         <Typography variant="h3">TIMELINE</Typography>
-        <TimeLine timelines={[1, 2, 3, 4]} />
+        <TimeLine timelines={timelines} />
       </div>
 
       <div className="homeSkills">
         <Typography variant="h3">SKILLS</Typography>
         <div className="homeCubeSKills">
           <div className="homeCubeSKillsFaces homeCubeSKillsFace1">
-            <img src={logo} alt="face1" />
+            <img src={skills.image1.url} alt="face1" />
           </div>
           <div className="homeCubeSKillsFaces homeCubeSKillsFace2">
-            <img src={moonImg} alt="face2" />
+            <img src={skills.image2.url} alt="face2" />
           </div>
 
           <div className="homeCubeSKillsFaces homeCubeSKillsFace3">
-            <img src={venusIMG} alt="face3" />
+            <img src={skills.image3.url} alt="face3" />
           </div>
 
           <div className="homeCubeSKillsFaces homeCubeSKillsFace4">
-            <img src={spaceIMG} alt="face4" />
+            <img src={skills.image4.url} alt="face4" />
           </div>
           <div className="homeCubeSKillsFaces homeCubeSKillsFace5">
-            <img src={moonImg} alt="face5" />
+            <img src={skills.image5.url} alt="face5" />
           </div>
           <div className="homeCubeSKillsFaces homeCubeSKillsFace6">
-            <img src={logo} alt="face6" />
+            <img src={skills.image6.url} alt="face6" />
           </div>
         </div>
         <div className="cubeshadow"></div>
@@ -155,7 +155,7 @@ const Home = () => {
       </div>
      
     </div>
-     <Project/>
+     <Projects project={project}/>
      </>
   );
 };

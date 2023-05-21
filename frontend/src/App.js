@@ -5,13 +5,14 @@ import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Footer from "./components/Footer/Footer";
 import About from "./components/About/About";
-import Project from "./components/Projects/Project";
 import Contact from "./components/Contact/Contact";
 import Login from "./components/Login/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, loadUser } from "./Action/Action";
 import AdminPanel from "./components/Admin-panel/AdminPanel";
 import Timeline from "./components/Admin-panel/Timeline";
+import Projects from "./components/Projects/Projects";
+import Project from "./components/Admin-panel/Project";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const App = () => {
   const { loading, user } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(getUser());
+   const user = dispatch(getUser());
     dispatch(loadUser());
   }, [dispatch]);
 
@@ -32,9 +33,9 @@ const App = () => {
         <>
           <Header />
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/projects" element={<Project />} />
+            <Route path="/" element={<Home timelines={user.timeline} skills={user.skills} project={user.project} />} />
+            <Route path="/about" element={<About about={user.about} />} />
+            <Route path="/projects" element={<Projects project={user.project} />} />
             <Route path="/contact" element={<Contact />} />
             <Route
               path="/account"
@@ -43,6 +44,10 @@ const App = () => {
             <Route
               path="/admin/timeline"
               element={isAuthenticated ? <Timeline /> : <Login />}
+            />
+            <Route
+              path="/admin/project"
+              element={isAuthenticated ? <Project /> : <Login />}
             />
           </Routes>
           <Footer />
