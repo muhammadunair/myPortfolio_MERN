@@ -326,7 +326,7 @@ export const deleteProject = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findById(req.user._id);
-    const project = user.project.filter((item)=>item._id === id )
+    const project = user.project.filter((item)=>item._id == id)[0]
     await cloudinary.uploader.destroy(project.image.public_id)
     user.project = user.project.filter((item)=>item._id !== id )
 
