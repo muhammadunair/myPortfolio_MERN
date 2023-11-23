@@ -13,6 +13,7 @@ import AdminPanel from "./components/Admin-panel/AdminPanel";
 import Timeline from "./components/Admin-panel/Timeline";
 import Projects from "./components/Projects/Projects";
 import Project from "./components/Admin-panel/Project";
+import Loader from "./loader/Loader";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const App = () => {
   return (
     <Router>
       {loading ? (
-        <div>Loading</div>
+        <Loader/>
       ) : (
         <>
           <Header />

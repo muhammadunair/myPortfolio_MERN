@@ -8,7 +8,7 @@ const Header = () => {
     <ReactNavbar
     logoWidth="250px"
     logo={logo}
-      navColor1="white"
+      navColor1="black"
       navColor2="hsl(219, 48%, 8%)"
       burgerColor="white"
       burgerColorHover="hsl(250, 100%, 75%)"

@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./home.css";
 import * as THREE from "three";
 // import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import moonImg from "../../images/moon.jpg";
 import venusIMG from "../../images/venus.jpg";
-import spaceIMG from "../../images/space6.jpg";
-import nowwhere from "../../images/space2.jpg";
+import spaceIMG from "../../images/spacenew.jpg";
+import nowwhere from "../../images/space4.jpg";
 import { Typography } from "@mui/material";
 import TimeLine from "../TimeLine/TimeLine";
 import {
@@ -20,12 +20,21 @@ import {
   SiThreedotjs,
 } from "react-icons/si";
 import Projects from "../Projects/Projects";
+import Loader from "../../loader/Loader";
+import { Link } from "react-router-dom";
+import { MouseOutlined } from "@mui/icons-material";
 
-const Home = ({timelines,skills,project}) => {
+
+const Home = ({ timelines, skills, project }) => {
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const textureloader = new THREE.TextureLoader();
 
-    const moonsTexture = textureloader.load(moonImg);
+    const canvas = document.querySelector(".homeCanvas");
+    const renderer = new THREE.WebGLRenderer({ canvas });
+    const moonsTexture = textureloader.load(moonImg, () => {
+      setLoading(true);
+    });
     const venusTexture = textureloader.load(venusIMG);
     const nowhereTexture = textureloader.load(nowwhere);
     const spaceTexture = textureloader.load(spaceIMG);
@@ -39,9 +48,6 @@ const Home = ({timelines,skills,project}) => {
     );
     camera.position.set(3, 4, 8);
 
-    const canvas = document.querySelector(".homeCanvas");
-    const renderer = new THREE.WebGLRenderer({ canvas });
-
     const moonGeometry = new THREE.SphereGeometry(2, 64, 64);
     const moonMaterial = new THREE.MeshStandardMaterial({ map: moonsTexture });
     const moon = new THREE.Mesh(moonGeometry, moonMaterial);
@@ -52,8 +58,10 @@ const Home = ({timelines,skills,project}) => {
     const venus = new THREE.Mesh(venusGeometry, venusMaterial);
     venus.position.set(6, 2, 5);
 
-    const nowhereGeometry = new THREE.SphereGeometry(2, 50,50);
-    const nowhereMaterial = new THREE.MeshBasicMaterial({ map: nowhereTexture });
+    const nowhereGeometry = new THREE.SphereGeometry(2, 50, 50);
+    const nowhereMaterial = new THREE.MeshBasicMaterial({
+      map: nowhereTexture,
+    });
     const nowhere = new THREE.Mesh(nowhereGeometry, nowhereMaterial);
     nowhere.position.set(-1, 5, 5);
 
@@ -63,7 +71,6 @@ const Home = ({timelines,skills,project}) => {
     pointLight.position.set(8, 2, 10);
     // pointLight2.position.set(-8, -5, -5);
     // pointLight3.position.set(1.5, 5, 5);
-   
 
     // const control = new OrbitControls(camera, renderer.domElement)
 
@@ -122,62 +129,91 @@ const Home = ({timelines,skills,project}) => {
       renderer.render(scene, camera);
     };
     animate();
+    return window.addEventListener("scroll", () => {
+      camera.rotation.z = window.scrollY * 0.001;
+      camera.rotation.y = window.scrollY * 0.003;
+
+      const skillsBox = document.getElementById("homeskillsBox");
+      if (window.scrollY > 1500) {
+        skillsBox.style.animationName = "homeskillsBoxAnimationOn";
+      } else {
+        skillsBox.style.animationName = "homeskillsBoxAnimationOff";
+      }
+    });
   }, []);
 
   return (
     <>
-    <div className="home">
-      <canvas className="homeCanvas" ></canvas>
-
-      <div className="homeContainer">
-        <Typography variant="h3">TIMELINE</Typography>
-        <TimeLine timelines={timelines} />
-      </div>
-
-      <div className="homeSkills">
-        <Typography variant="h3">SKILLS</Typography>
-        <div className="homeCubeSKills">
-          <div className="homeCubeSKillsFaces homeCubeSKillsFace1">
-            <img src={skills.image1.url} alt="face1" />
-          </div>
-          <div className="homeCubeSKillsFaces homeCubeSKillsFace2">
-            <img src={skills.image2.url} alt="face2" />
-          </div>
-
-          <div className="homeCubeSKillsFaces homeCubeSKillsFace3">
-            <img src={skills.image3.url} alt="face3" />
-          </div>
-
-          <div className="homeCubeSKillsFaces homeCubeSKillsFace4">
-            <img src={skills.image4.url} alt="face4" />
-          </div>
-          <div className="homeCubeSKillsFaces homeCubeSKillsFace5">
-            <img src={skills.image5.url} alt="face5" />
-          </div>
-          <div className="homeCubeSKillsFaces homeCubeSKillsFace6">
-            <img src={skills.image6.url} alt="face6" />
-          </div>
+      {!loading ? <Loader /> : null}
+      <div className="home">
+        <canvas className="homeCanvas"></canvas>
+        <div className="homeCanvasContainer">
+        <Typography variant="h1">
+          {/* <p>J</p>
+          <p></p> */}
+          <p>J</p>
+          <p>U</p>
+          <p>N</p>
+          <p>A</p>
+          <p>I</p>
+          <p>D</p>
+        </Typography>
+        <div className="homeCanvasBox">
+          <Typography variant="h2">DESIGNER</Typography>
+          <Typography variant="h2">DEVELOPER</Typography>
+          <Typography variant="h2">TEACHER</Typography>
+          <Typography variant="h2">CONTENT CREATOR</Typography>
         </div>
-        <div className="cubeshadow"></div>
-        <div className="homeskillsBox" id="homeskillsBox">
-          <SiCplusplus />
-          <SiHtml5 />
-          <SiCss3 />
-          <SiJavascript />
-          <SiMongodb />
-          <SiExpress />
-          <SiReact />
-          <SiNodedotjs />
-          <SiThreedotjs />
+        <Link to="/projects">VIEW WORK</Link>
+        <div className="homeScrollBtn">
+        <MouseOutlined />
+      </div>
+        </div>
+        <div className="homeContainer">
+          <Typography variant="h3">TIMELINE</Typography>
+          <TimeLine timelines={timelines} />
         </div>
 
+        <div className="homeSkills" id="homeSkills">
+          <Typography variant="h3">SKILLS</Typography>
+          <div className="homeCubeSKills">
+            <div className="homeCubeSKillsFaces homeCubeSKillsFace1">
+              <img src={skills.image1.url} alt="face1" />
+            </div>
+            <div className="homeCubeSKillsFaces homeCubeSKillsFace2">
+              <img src={skills.image2.url} alt="face2" />
+            </div>
 
-       
+            <div className="homeCubeSKillsFaces homeCubeSKillsFace3">
+              <img src={skills.image3.url} alt="face3" />
+            </div>
+
+            <div className="homeCubeSKillsFaces homeCubeSKillsFace4">
+              <img src={skills.image4.url} alt="face4" />
+            </div>
+            <div className="homeCubeSKillsFaces homeCubeSKillsFace5">
+              <img src={skills.image5.url} alt="face5" />
+            </div>
+            <div className="homeCubeSKillsFaces homeCubeSKillsFace6">
+              <img src={skills.image6.url} alt="face6" />
+            </div>
+          </div>
+          <div className="cubeshadow"></div>
+          <div className="homeskillsBox" id="homeskillsBox">
+            <SiCplusplus />
+            <SiHtml5 />
+            <SiCss3 />
+            <SiJavascript />
+            <SiMongodb />
+            <SiExpress />
+            <SiReact />
+            <SiNodedotjs />
+            <SiThreedotjs />
+          </div>
+        </div>
+        <Projects project={project} />
       </div>
-     
-    </div>
-     <Projects project={project}/>
-     </>
+    </>
   );
 };
 
