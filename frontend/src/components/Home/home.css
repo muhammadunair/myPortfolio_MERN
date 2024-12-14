@@ -5,7 +5,7 @@
   /* background-image: url(../../images/space2.jpg); */
   background-size: cover;
   background-repeat: no-repeat;
-  filter: blur(10px);
+  /* filter: blur(1px); */
   position: absolute;
 }
 .homeCanvasContainer {
