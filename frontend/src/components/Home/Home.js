@@ -161,9 +161,7 @@ const Home = ({ timelines, skills, project }) => {
         <div className="homeCanvasBox">
           <Typography variant="h2">DESIGNER</Typography>
           <Typography variant="h2">DEVELOPER</Typography>
-          <Typography variant="h2">TEACHER</Typography>
-          <Typography variant="h2">CONTENT CREATOR</Typography>
-        </div>
+          </div>
         <Link to="/projects">VIEW WORK</Link>
         <div className="homeScrollBtn">
         <MouseOutlined />
@@ -199,7 +197,7 @@ const Home = ({ timelines, skills, project }) => {
             </div>
           </div>
           <div className="cubeshadow"></div>
-          <div className="homeskillsBox" id="homeskillsBox">
+          {/* <div className="homeskillsBox" id="homeskillsBox">
             <SiCplusplus />
             <SiHtml5 />
             <SiCss3 />
@@ -209,7 +207,7 @@ const Home = ({ timelines, skills, project }) => {
             <SiReact />
             <SiNodedotjs />
             <SiThreedotjs />
-          </div>
+          </div> */}
         </div>
         <Projects project={project} />
       </div>

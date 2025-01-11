@@ -133,7 +133,7 @@
   position: absolute;
   width: inherit;
   height: inherit;
-  opacity: 0.8;
+  opacity: 1;
 }
 .homeCubeSKillsFaces img {
   width: inherit;
@@ -141,22 +141,22 @@
 }
 
 .homeCubeSKillsFace1 {
-  transform: translate3d(0, 0, 120px);
+  transform: translate3d(0, 0, 110px);
 }
 .homeCubeSKillsFace2 {
-  transform: rotateY(180deg) translate3d(0, 0, 120px);
+  transform: rotateY(180deg) translate3d(0, 0, 110px);
 }
 .homeCubeSKillsFace3 {
-  transform: rotateY(-90deg) translate3d(0, 0, 120px);
+  transform: rotateY(-90deg) translate3d(0, 0, 110px);
 }
 .homeCubeSKillsFace4 {
-  transform: rotateY(90deg) translate3d(0, 0, 120px);
+  transform: rotateY(90deg) translate3d(0, 0, 110px);
 }
 .homeCubeSKillsFace5 {
-  transform: rotateX(90deg) translate3d(0, 0, 120px);
+  transform: rotateX(90deg) translate3d(0, 0, 110px);
 }
 .homeCubeSKillsFace6 {
-  transform: rotateX(-90deg) translate3d(0, 0, 120px);
+  transform: rotateX(-90deg) translate3d(0, 0, 110px);
 }
 
 .cubeshadow {
