@@ -1,0 +1,33 @@
+{
+  "name": "myportfolio-master",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mJunaid15/myPortfolio_MERN.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mJunaid15/myPortfolio_MERN/issues"
+  },
+  "homepage": "https://github.com/mJunaid15/myPortfolio_MERN#readme",
+  "dependencies": {
+    "cloudinary": "^1.29.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.1",
+    "nodemailer": "^6.7.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
