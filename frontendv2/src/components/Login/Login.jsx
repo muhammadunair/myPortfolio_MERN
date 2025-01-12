@@ -4,17 +4,21 @@ import "./login.css";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../Action/Action";
 import { toast } from 'react-toastify';
+import { Navigate, useNavigate } from 'react-router-dom';
  
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-   const { loading, message, error } = useSelector((state) => state.login);
+  const { loading, message, error } = useSelector((state) => state.login);
+  
+  const navigate = useNavigate();
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
+    navigate("/account");
   };
 
   useEffect(() => {
@@ -61,9 +65,10 @@ const Login = () => {
               required
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="primary" disabled={loading}>
+            {/* <Button type="submit"  disabled={loading}>
               Login
-            </Button>
+            </Button> */}
+            <button type='submit'> login</button>
           </div>
         </form>
       </div>
