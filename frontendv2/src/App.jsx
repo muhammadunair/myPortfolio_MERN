@@ -35,6 +35,7 @@ const App = () => {
         <>
           <Header />
           <Routes>
+            <Route path="/login" element={<Login />} />
             <Route path="/" element={<Home timelines={user?.timeline} skills={user?.skills} project={user?.project} />} />
             <Route path="/about" element={<About about={user?.about} />} />
             <Route path="/projects" element={<Projects project={user?.project} />} />

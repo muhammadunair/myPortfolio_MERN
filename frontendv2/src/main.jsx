@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import { ToastContainer } from 'react-toastify'
 import { Provider } from 'react-redux'
-import store from '../../frontend/src/store.js'
+import store from '../../frontendv2/src/store.js'
 import './index.css';  
 
 createRoot(document.getElementById('root')).render(
