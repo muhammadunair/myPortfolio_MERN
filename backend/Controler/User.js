@@ -23,7 +23,7 @@ import { v2 as cloudinary } from 'cloudinary'
 //       .cookie("token", token, {
 //         expires: new Date(Date.now() + 600000),
 //         httpOnly: true,
-       
+
 //       })
 //       .json({
 //         success: true,
@@ -51,21 +51,17 @@ export const login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({
-      userId: user._id
-    }, process.env.JWT_SECRET
-      , {
-        expiresIn: '1h',
-      }
-    );
+    // Safely access user._id
+    const token = jwt.sign({ _id: user._id  }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
 
-    res.status(200)
-      .json({
-        token,
-        role: 'super-admin',
-        success: true,
-        message: "Logged In Successfully",
-      });
+    res.status(200).json({
+      token,
+      role: 'super-admin',
+      success: true,
+      message: "Logged In Successfully",
+    });
   } catch (error) {
     return res.status(400).json({
       success: false,
@@ -73,6 +69,7 @@ export const login = async (req, res) => {
     });
   }
 };
+
 export const logout = async (req, res) => {
   try {
     res
@@ -157,7 +154,7 @@ export const updateUser = async (req, res) => {
     }
     if (skills) {
       if (skills.image1) {
-        if(user.skills.image1.public_id){
+        if (user.skills.image1.public_id) {
           await cloudinary.uploader.destroy(user.skills.image1.public_id);
         }
         const myCloud = await cloudinary.uploader.upload(skills.image1, {
@@ -170,8 +167,8 @@ export const updateUser = async (req, res) => {
       }
 
       if (skills.image2) {
-        if(user.skills.image2.public_id){
-        await cloudinary.uploader.destroy(user.skills.image2.public_id);
+        if (user.skills.image2.public_id) {
+          await cloudinary.uploader.destroy(user.skills.image2.public_id);
         }
         const myCloud = await cloudinary.uploader.upload(skills.image2, {
           folder: "portfolio",
@@ -183,8 +180,8 @@ export const updateUser = async (req, res) => {
       }
 
       if (skills.image3) {
-        if(user.skills.image3.public_id){
-        await cloudinary.uploader.destroy(user.skills.image3.public_id);
+        if (user.skills.image3.public_id) {
+          await cloudinary.uploader.destroy(user.skills.image3.public_id);
         }
         const myCloud = await cloudinary.uploader.upload(skills.image3, {
           folder: "portfolio",
@@ -196,8 +193,8 @@ export const updateUser = async (req, res) => {
       }
 
       if (skills.image4) {
-        if(user.skills.image4.public_id){
-        await cloudinary.uploader.destroy(user.skills.image4.public_id);
+        if (user.skills.image4.public_id) {
+          await cloudinary.uploader.destroy(user.skills.image4.public_id);
         }
         const myCloud = await cloudinary.uploader.upload(skills.image4, {
           folder: "portfolio",
@@ -209,8 +206,8 @@ export const updateUser = async (req, res) => {
       }
 
       if (skills.image5) {
-        if(user.skills.image5.public_id){
-        await cloudinary.uploader.destroy(user.skills.image5.public_id);
+        if (user.skills.image5.public_id) {
+          await cloudinary.uploader.destroy(user.skills.image5.public_id);
         }
         const myCloud = await cloudinary.uploader.upload(skills.image5, {
           folder: "portfolio",
@@ -222,8 +219,8 @@ export const updateUser = async (req, res) => {
       }
 
       if (skills.image6) {
-        if(user.skills.image6.public_id){
-        await cloudinary.uploader.destroy(user.skills.image6.public_id);
+        if (user.skills.image6.public_id) {
+          await cloudinary.uploader.destroy(user.skills.image6.public_id);
         }
         const myCloud = await cloudinary.uploader.upload(skills.image6, {
           folder: "portfolio",
@@ -234,7 +231,7 @@ export const updateUser = async (req, res) => {
         };
       }
     }
-    
+
 
     if (about) {
       if (about.name) {
@@ -254,8 +251,8 @@ export const updateUser = async (req, res) => {
         user.about.quote = about.quote;
       }
       if (about.avatar) {
-        if(user.about.avatar.public_id){
-        await cloudinary.uploader.destroy(user.about.avatar.public_id);
+        if (user.about.avatar.public_id) {
+          await cloudinary.uploader.destroy(user.about.avatar.public_id);
         }
         const myCloud = await cloudinary.uploader.upload(about.avatar, {
           folder: "portfolio",
@@ -340,7 +337,7 @@ export const deleteTimeline = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findById(req.user._id);
-    user.timeline = user.timeline.filter((item)=>item._id != id )
+    user.timeline = user.timeline.filter((item) => item._id != id)
 
     await user.save();
 
@@ -362,9 +359,9 @@ export const deleteProject = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findById(req.user._id);
-    const project = user.project.filter((item)=>item._id == id)[0]
+    const project = user.project.filter((item) => item._id == id)[0]
     await cloudinary.uploader.destroy(project.image.public_id)
-    user.project = user.project.filter((item)=>item._id != id )
+    user.project = user.project.filter((item) => item._id != id)
 
     await user.save();
 
