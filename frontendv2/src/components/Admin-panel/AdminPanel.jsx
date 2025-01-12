@@ -92,7 +92,7 @@ const AdminPanel = () => {
   return (
     <div className="adminPanel">
       <div className="adminPanelContainer">
-        <Typography variant="h4">
+        {/* <Typography variant="h4">
           <p>A</p>
           <p>D</p>
           <p>M</p>
@@ -104,7 +104,7 @@ const AdminPanel = () => {
           <p>N</p>
           <p>E</p>
           <p>L</p>
-        </Typography>
+        </Typography> */}
 
         <form onSubmit={submitHandler}>
           <input
