@@ -3,6 +3,41 @@ import jwt from "jsonwebtoken";
 import { sendMail } from "../middleware/SendMail.js";
 import { v2 as cloudinary } from 'cloudinary'
 
+// export const login = async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+
+//     const user = await User.findOne({ email, password });
+
+//     if (!user) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Invalid email or password",
+//       });
+//     }
+
+//     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+
+//     res
+//       .status(200)
+//       .cookie("token", token, {
+//         expires: new Date(Date.now() + 600000),
+//         httpOnly: true,
+       
+//       })
+//       .json({
+//         success: true,
+//         message: "Logged In Successfully",
+//       });
+//   } catch (error) {
+//     return res.status(400).json({
+//       success: false,
+//       message: error.message,
+//     });
+//   }
+// };
+
+
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -10,22 +45,24 @@ export const login = async (req, res) => {
     const user = await User.findOne({ email, password });
 
     if (!user) {
-      return res.status(400).json({
+      return res.status(401).json({
         success: false,
         message: "Invalid email or password",
       });
     }
 
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({
+      userId: user._id
+    }, process.env.JWT_SECRET
+      , {
+        expiresIn: '1h',
+      }
+    );
 
-    res
-      .status(200)
-      .cookie("token", token, {
-        expires: new Date(Date.now() + 600000),
-        httpOnly: true,
-       
-      })
+    res.status(200)
       .json({
+        token,
+        role: 'super-admin',
         success: true,
         message: "Logged In Successfully",
       });
@@ -36,7 +73,6 @@ export const login = async (req, res) => {
     });
   }
 };
-
 export const logout = async (req, res) => {
   try {
     res
